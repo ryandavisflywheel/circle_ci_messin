@@ -3,31 +3,33 @@ version: 2
 
 workflows:
   version: 2
-  engine_workflow:
+  web_and_engine_node_workflow:
     jobs:
+      - web_gcp_instance_up
       - engine_gcp_instance_up
+      - web_instance_ansible_config:
+          requires:
+            - web_gcp_instance_up
       - engine_instance_ansible_config:
           requires:
             - web_instance_ansible_config
             - engine_gcp_instance_up
-      - engine_instance_test:
-          requires:
-            - engine_instance_ansible_config
-      - engine_gcp_instance_down:
-          requires:
-            - engine_instance_test
-  web_workflow:
-    jobs:
-      - web_gcp_instance_up
-      - web_instance_ansible_config:
-          requires:
-            - web_gcp_instance_up
       - web_instance_test:
           requires:
             - web_instance_ansible_config
+      - engine_instance_test:
+          requires:
+            - engine_instance_ansible_config
+      - web_and_engine_instance_test:
+          requires:
+            - web_instance_ansible_config
+            - engine_instance_ansible_config
       - web_gcp_instance_down:
           requires:
             - web_instance_test
+      - engine_gcp_instance_down:
+          requires:
+            - engine_instance_test
 
 jobs:
   engine_gcp_instance_up:
@@ -87,6 +89,14 @@ jobs:
             echo "$CIRCLE_JOB"
 
   web_gcp_instance_down:
+    docker:
+      - image: ubuntu:18.10
+    steps:
+      - run:
+          command: |
+            echo "$CIRCLE_JOB"
+
+  web_and_engine_instance_test:
     docker:
       - image: ubuntu:18.10
     steps:
