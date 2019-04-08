@@ -7,7 +7,9 @@ workflows:
     jobs:
       - null_job
       - spin_up_gcp_instance
-      - config_instance_with_ansible  
+      - config_instance_with_ansible:
+          requires: 
+            - spin_up_gcp_instance
 
 jobs:
   null_job:
