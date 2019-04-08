@@ -26,9 +26,11 @@ workflows:
             - engine_instance_ansible_config
       - web_gcp_instance_down:
           requires:
+            - web_and_engine_instance_test
             - web_instance_test
       - engine_gcp_instance_down:
           requires:
+            - web_and_engine_instance_test
             - engine_instance_test
 
 jobs:
@@ -72,7 +74,7 @@ jobs:
           command: |
             echo "$CIRCLE_JOB"
 
-  web_gcp_instance_ansible_config:
+  web_instance_ansible_config:
     docker:
       - image: ubuntu:18.10
     steps:
