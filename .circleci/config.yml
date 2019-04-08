@@ -5,7 +5,7 @@ workflows:
   version: 2
   engine_workflow:
     jobs:
-      - engine_gcp_instance_up:
+      - engine_gcp_instance_up
       - engine_gcp_instance_ansible_config:
           requires:
             - engine_gcp_instance_up
