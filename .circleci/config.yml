@@ -3,45 +3,48 @@ version: 2
 
 workflows:
   version: 2
-  hello_world:
-    environment:
-      ENV_VAR: "different meow" 
+  engine_workflow:
     jobs:
-      - null_job
-      - spin_up_gcp_instance
-      - config_instance_with_ansible:
-          requires: 
-            - spin_up_gcp_instance
+      - engine_gcp_instance_up:
+      - engine_gcp_instance_ansible_config:
+          requires:
+            - engine_gcp_instance_up
+      - engine_instance_test:
+          requires:
+            - engine_gcp_instance_ansible_config
+      - engine_gcp_instance_down:
+          requires:
+            - engine_instance_test
 
 jobs:
-  null_job:
-    docker:
-      - image: ubuntu:18.10
-    environment:
-      ENV_VAR: "null_job" 
-    steps:
-      - run:
-          command: |
-            echo "my ENV_VAR is $ENV_VAR !!"
-
-  spin_up_gcp_instance:
+  engine_gcp_instance_up:
     docker:
       - image: ubuntu:18.10
     steps:
       - run:
           command: |
             echo "$CIRCLE_JOB"
-      - run:
-          command: |
-            echo "$CIRCLE_STAGE"
 
-  config_instance_with_ansible:
+  engine_gcp_instance_ansible_config:
     docker:
       - image: ubuntu:18.10
     steps:
       - run:
           command: |
             echo "$CIRCLE_JOB"
+
+  engine_instance_test:
+    docker:
+      - image: ubuntu:18.10
+    steps:
       - run:
           command: |
-            echo "$CIRCLE_STAGE"
+            echo "$CIRCLE_JOB"
+
+  engine_gcp_instance_down:
+    docker:
+      - image: ubuntu:18.10
+    steps:
+      - run:
+          command: |
+            echo "$CIRCLE_JOB"
