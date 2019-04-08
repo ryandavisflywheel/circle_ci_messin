@@ -6,7 +6,7 @@ workflows:
   hello_world:
     jobs:
       - null_job
-      - spin_up_gcp_image
+      - spin_up_gcp_instance
       - config_instance_with_ansible  
 
 jobs:
