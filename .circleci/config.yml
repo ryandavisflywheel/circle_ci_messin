@@ -6,8 +6,6 @@ workflows:
   hello_world:
     jobs:
       - null_job
-          environment:
-            ENV_VAR: "hello_world"
 
 jobs:
   null_job:
