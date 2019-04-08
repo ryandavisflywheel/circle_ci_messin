@@ -6,15 +6,38 @@ workflows:
   hello_world:
     jobs:
       - null_job
+      - spin_up_docker_image
+      - config_instance_with_ansible  
 
 jobs:
   null_job:
     docker:
       - image: ubuntu:18.10
     environment:
-      ENV_VAR: "default" 
+      ENV_VAR: "null_job" 
     steps:
       - run:
           command: |
             echo "my ENV_VAR is $ENV_VAR !!"
 
+  spin_up_gcp_instance:
+    docker:
+      - image: ubuntu:18.10
+    steps:
+      - run:
+          command: |
+            echo "$CIRCLE_JOB"
+      - run:
+          command: |
+            echo "$CIRCLE_STAGE"
+
+  config_instance_with_ansible:
+    docker:
+      - image: ubuntu:18.10
+    steps:
+      - run:
+          command: |
+            echo "$CIRCLE_JOB"
+      - run:
+          command: |
+            echo "$CIRCLE_STAGE"
