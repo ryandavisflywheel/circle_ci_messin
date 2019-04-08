@@ -8,10 +8,9 @@ workflows:
       - null_job
 
 jobs:
-  build:
+  null_job:
     docker:
       - image: ubuntu:18.10
-  null_job:
     environment:
       ENV_VAR: "default" 
     steps:
