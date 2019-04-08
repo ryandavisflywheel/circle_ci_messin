@@ -4,10 +4,10 @@ version: 2
 workflows:
   version: 2
   hello_world:
-    environment:
-      ENV_VAR: "hello_world"
     jobs:
       - null_job
+          environment:
+            ENV_VAR: "hello_world"
 
 jobs:
   null_job:
