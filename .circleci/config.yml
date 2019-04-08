@@ -12,7 +12,7 @@ workflows:
 jobs:
   null_job:
     environment:
-      ENV_VAR: "default" 
+      - ENV_VAR: "default" 
     steps:
       - run:
         command: |
