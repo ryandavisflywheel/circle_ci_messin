@@ -12,9 +12,9 @@ workflows:
 jobs:
   null_job:
     environment:
-      - ENV_VAR: "default" 
+      ENV_VAR: "default" 
     steps:
       - run:
-        command: |
-          echo "my ENV_VAR is $ENV_VAR !!"
+          command: |
+            echo "my ENV_VAR is $ENV_VAR !!"
 
