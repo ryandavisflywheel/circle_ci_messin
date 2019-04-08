@@ -8,66 +8,8 @@ workflows:
       ENV_VAR: "hello_world"
     jobs:
       - null_job:
-  nightly:
-    triggers:
-      - schedule:
-          cron: "0 0 * * *"
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
-      test_web_node:
-        environment:
-          ENV_VAR: "web_node"
-        jobs:
-          - null_job:
-      test_engine_node:
-        requires:
-          - test_web_node
-        environment:
-          ENV_VAR: "eng_node"
-        jobs:
-          - create_manifest:
-          - bring_up_gcp_instance:
-              requires:
-                - create_manifest  
-          - configure_with_ansible:
-              requires:
-                - bring_up_gcp_instance  
-          - run_engine_test:
-              requires:
-                - configure_with_ansible
-          - bring_down_gcp_instance:
-              requires:
-                - run_engine_test
 
 jobs:
-  create_manifests:
-    steps:
-      - run:
-        command: |
-          touch ${ENV_VAR}_docker_images.yml
-  bring_up_gcp_instance:
-    steps:
-      - run:
-        command: |
-          echo "Bringing up GCP instance..."
-  configure_with_ansible:
-    steps:
-      - run:
-        command: |
-          echo "Configuring and setting up instance..."
-  run_engine_test: 
-    steps:
-      - run:
-        command: |
-          echo "Running engine tests..."
-  bring_down_gcp_instance:
-    steps:
-      - run:
-        command: |
-          echo "Deleting GCP instance..."
   null_job:
     environment:
       ENV_VAR: "default" 
