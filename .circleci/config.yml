@@ -18,7 +18,7 @@ workflows:
             - engine_instance_test
   web_workflow:
     jobs:
-      - web_gcp_instance_up:
+      - web_gcp_instance_up
       - web_instance_ansible_config:
           requires:
             - web_gcp_instance_up
