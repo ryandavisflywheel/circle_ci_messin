@@ -5,6 +5,8 @@ workflows:
   version: 2
   hello_world:
     jobs:
+      environment:
+        ENV_VAR: "different meow" 
       - null_job
       - spin_up_gcp_instance
       - config_instance_with_ansible:
