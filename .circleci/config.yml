@@ -3,8 +3,11 @@ version: 2
 
 workflows:
   version: 2
-
+  
   web_and_engine_node_workflow:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
     jobs:
       - web_gcp_instance_up
       - engine_gcp_instance_up
@@ -35,6 +38,9 @@ workflows:
             - engine_instance_test
 
   all_in_one_node_workflow:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
     jobs:
       - aio_gcp_instance_up
       - aio_instance_ansible_config:
