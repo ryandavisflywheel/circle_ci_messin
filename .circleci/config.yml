@@ -74,7 +74,7 @@ jobs:
     steps:
       - run:
           command: |
-            echo "Here's a change in $CIRCLE_JOB"
+            echo "$CIRCLE_JOB"
 
   engine_instance_ansible_config:
     docker:
