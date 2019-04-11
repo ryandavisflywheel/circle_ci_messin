@@ -7,7 +7,7 @@ workflows:
   web_and_engine_node_workflow:
     triggers:
       - schedule:
-          cron: "0 16 * * *"
+          cron: "0 5 * * *"
           filters:
             branches:
               only: master
@@ -43,7 +43,7 @@ workflows:
   all_in_one_node_workflow:
     triggers:
       - schedule:
-          cron: "0 16 * * *"
+          cron: "0 5 * * *"
           filters:
             branches:
               only: master
